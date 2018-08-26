@@ -1,6 +1,6 @@
 // -*- mode: scala -*-
 
-// add mill-docker artifact repo
+// add mill-scalaxb artifact repo
 import mill._
 interp.repositories() =
   interp.repositories() ++ Seq(coursier.MavenRepository("https://jitpack.io"))
@@ -22,6 +22,9 @@ object hello extends ScalaModule with ScalaxbModule {
 
   // REQUIRED add the scalaxb runtime dependency
   def ivyDeps = Agg(ivy"org.scalaxb::scalaxb:1.5.2")
+
+  // optionally map namespace URIs to packages
+  // def scalaxbPackages = T[Seq[(String,String)]] { Seq("http://some/uri" -> "some.pkg") }
 
   // optionally define options as documented on http://scalaxb.org
   def scalaxbOptions = Seq(
