@@ -10,7 +10,7 @@ interp.repositories() =
 import mill._, scalalib._
 
 // import both scalaxb and the mill module
-import $ivy.`io.github.vic::mill-scalaxb:0.0.1`, mill.scalaxb._
+import $ivy.`io.github.vic::mill-scalaxb:0.0.2`, mill.scalaxb._
 import $ivy.`org.scalaxb::scalaxb:1.5.2`
 
 object hello extends ScalaModule with ScalaxbModule {

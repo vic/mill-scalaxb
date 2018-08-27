@@ -25,7 +25,7 @@ trait ScalaxbModule extends ScalaModule {
   def scalaxbArguments = T[Seq[String]] {
     scalaxbOptions() ++
       Seq[String]("--default-package", scalaxbDefaultPackage()) ++
-      scalaxbPackages().map { case (url, pkg) => "--package:${url}=${pkg}" } ++
+      scalaxbPackages().map { case (url, pkg) => s"--package:${url}=${pkg}" } ++
       (wsdlSources() ++ xsdSources()).map(_.path.toString)
   }
 
