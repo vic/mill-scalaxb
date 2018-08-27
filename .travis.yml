@@ -7,6 +7,7 @@ install:
   - ~/mill scalaxb.publishLocal
 script:
   - (cd example; ~/mill hello.compile)
-  - grep Generated out/hello/scalaxbGeneratedSources/dest/*.scala
-  - file out/hello/compile/dest/classes/example/Request.class
+  - grep Generated example/out/hello/scalaxbGeneratedSources/dest/*.scala
+  - file example/out/hello/compile/dest/classes/example/Request.class
+  - file example/out/hello/compile/dest/classes/scalaxb/Helper.class
 
