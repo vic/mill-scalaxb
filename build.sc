@@ -1,12 +1,14 @@
 // -*- mode: scala -*- 
 
-import mill._, scalalib._, publish._, ammonite.ops._, ImplicitWd._
+import mill._, scalalib._, publish._
 
 object scalaxb extends ScalaModule with PublishModule {
 
-  def scalaVersion = "2.12.7"
+  def publishVersion = os.read(os.pwd / "VERSION").trim
 
-  def publishVersion = "0.0.3"
+  // use versions installed from .tool-versions
+  def scalaVersion = scala.util.Properties.versionNumberString
+  def millVersion = System.getProperty("MILL_VERSION")
 
   def artifactName = "mill-scalaxb"
 
@@ -14,8 +16,8 @@ object scalaxb extends ScalaModule with PublishModule {
     val pa = publishArtifacts()
     val wd = T.ctx().dest
     val ad = pa.meta.group.split("\\.").foldLeft(wd)((a, b) => a / b) / pa.meta.id / pa.meta.version
-    mkdir(ad)
-    pa.payload.map { case (f,n) => cp(f.path, ad/n) }
+    os.makeDir.all(ad)
+    pa.payload.map { case (f,n) => os.copy(f.path, ad/n) }
   }
 
   def pomSettings = PomSettings(
@@ -30,7 +32,7 @@ object scalaxb extends ScalaModule with PublishModule {
   )
 
   def compileIvyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:0.3.3",
+    ivy"com.lihaoyi::mill-scalalib:${millVersion}",
     ivy"org.scalaxb::scalaxb:1.5.2"
   )
 
