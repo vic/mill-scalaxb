@@ -2,12 +2,9 @@ language: java
 jdk:
   - openjdk10
 before_install:
-  - sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/lihaoyi/mill/releases/download/0.3.5/0.3.5) > ~/mill && chmod +x ~/mill'
+  - ./ci asdf install
 install:
-  - ~/mill scalaxb.publishLocal
+  - ./ci install
 script:
-  - (cd example; ~/mill hello.compile)
-  - grep Generated example/out/hello/scalaxbGeneratedSources/dest/*.scala
-  - file example/out/hello/compile/dest/classes/example/Request.class
-  - file example/out/hello/compile/dest/classes/scalaxb/Helper.class
-
+  - ./ci test
+  - ./ci jitpack release
