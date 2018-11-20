@@ -42,7 +42,7 @@ case "$*" in
  ;;
 
  test)
-   (cd example; ~/mill hello.compile)
+   (cd example; mill hello.compile)
    grep Generated example/out/hello/scalaxbGeneratedSources/dest/*.scala
    file example/out/hello/compile/dest/classes/example/Request.class
    file example/out/hello/compile/dest/classes/scalaxb/Helper.class
