@@ -1,4 +1,10 @@
-// -*- mode: scala -*- 
+// -*- mode: scala -*-
+
+// Dont use sonatype's maven-central as it timeouts in travis.
+interp.repositories() =
+  List(coursier.MavenRepository("https://jcenter.bintray.com"))
+
+@
 
 import mill._, scalalib._, publish._
 
