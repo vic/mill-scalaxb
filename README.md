@@ -1,5 +1,6 @@
 # mill-scalaxb
 
+[![Jitpack](https://jitpack.io/v/vic/mill-scalaxb.svg)](https://jitpack.io/#vic/mill-scalaxb)
 [![Build Status](https://travis-ci.org/vic/mill-scalaxb.svg?branch=master)](https://travis-ci.org/vic/mill-scalaxb)
 
 
