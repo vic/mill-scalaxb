@@ -1,17 +1,19 @@
 // -*- mode: scala -*-
 
+import $ivy.`io.get-coursier:interface:0.0.21`
+
 // add mill-scalaxb artifact repo
 import mill._
 interp.repositories() =
-  interp.repositories() ++ Seq(coursier.MavenRepository("https://jitpack.io"))
+  interp.repositories() ++ Seq(coursierapi.MavenRepository.of("https://jitpack.io"))
 
 @
 
 import mill._, scalalib._
 
 // import both scalaxb and the mill module
-import $ivy.`io.github.vic::mill-scalaxb:0.1.0`, mill.scalaxb._
-import $ivy.`org.scalaxb::scalaxb:1.5.2`
+import $ivy.`io.github.vic::mill-scalaxb:0.2.0`, mill.scalaxb._
+import $ivy.`org.scalaxb::scalaxb:1.7.3`
 
 object hello extends ScalaModule with ScalaxbModule {
 
@@ -21,7 +23,10 @@ object hello extends ScalaModule with ScalaxbModule {
   def scalaxbDefaultPackage = "example"
 
   // REQUIRED add the scalaxb runtime dependency
-  def ivyDeps = Agg(ivy"org.scalaxb::scalaxb:1.5.2")
+  def ivyDeps = Agg(
+    ivy"org.scalaxb::scalaxb:1.7.3",
+    ivy"org.glassfish.jaxb:jaxb-runtime:2.3.2"
+  )
 
   // optionally map namespace URIs to packages
   // def scalaxbPackages = T[Seq[(String,String)]] { Seq("http://some/uri" -> "some.pkg") }
