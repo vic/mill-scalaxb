@@ -7,9 +7,7 @@ export PATH=$HOME/bin:$PATH
 case "$*" in
 
  jitpack)
-   mill -i _.m2
-   mkdir -p ~/.m2
-   cp -rv out/*/m2/dest/ ~/.m2/repository
+   mill _.publishM2Local
  ;;
 
 
@@ -25,8 +23,8 @@ case "$*" in
 
 
  test)
-   mill -i _.publishLocal
-   (cd example; mill hello.compile)
+   mill _.publishLocal 
+   (cd example; mill _.compile)
    grep Generated example/out/hello/scalaxbGeneratedSources/dest/*.scala
    file example/out/hello/compile/dest/classes/example/Request.class
    file example/out/hello/compile/dest/classes/scalaxb/Helper.class

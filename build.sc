@@ -20,14 +20,6 @@ object scalaxb extends ScalaModule with PublishModule {
 
   def artifactName = "mill-scalaxb"
 
-  def m2 = T {
-    val pa = publishArtifacts()
-    val wd = T.ctx().dest
-    val ad = pa.meta.group.split("\\.").foldLeft(wd)((a, b) => a / b) / pa.meta.id / pa.meta.version
-    os.makeDir.all(ad)
-    pa.payload.map { case (f,n) => os.copy(f.path, ad/n) }
-  }
-
   def pomSettings = PomSettings(
     description = "Scalaxb code generation for mill",
     organization = "io.github.vic",
