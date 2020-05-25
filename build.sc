@@ -33,7 +33,7 @@ object scalaxb extends ScalaModule with PublishModule {
 
   def compileIvyDeps = Agg(
     ivy"com.lihaoyi::mill-scalalib:${millVersion}",
-    ivy"org.scalaxb::scalaxb:1.5.2"
+    ivy"org.scalaxb::scalaxb:1.7.3"
   )
 
 }
