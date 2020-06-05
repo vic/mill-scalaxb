@@ -12,12 +12,12 @@ interp.repositories() =
 import mill._, scalalib._
 
 // import both scalaxb and the mill module
-import $ivy.`io.github.vic::mill-scalaxb:0.3.0`, mill.scalaxb._
+import $ivy.`io.github.vic::mill-scalaxb:0.4.0`, mill.scalaxb._
 import $ivy.`org.scalaxb::scalaxb:1.7.3`
 
 object hello extends ScalaModule with ScalaxbModule {
 
-  def scalaVersion = "2.12.8"
+  def scalaVersion = "2.12.11"
 
   // REQUIRED name of the package for generated sources
   def scalaxbDefaultPackage = "example"
