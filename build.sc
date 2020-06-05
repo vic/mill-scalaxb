@@ -35,5 +35,4 @@ object scalaxb extends ScalaModule with PublishModule {
     ivy"com.lihaoyi::mill-scalalib:${millVersion}",
     ivy"org.scalaxb::scalaxb:1.7.3"
   )
-
 }
