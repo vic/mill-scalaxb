@@ -2,15 +2,17 @@
 
 import mill._, scalalib._, publish._
 
-object scalaxb extends ScalaModule with PublishModule {
+val crossVersions = Seq("2.13.2", "2.12.11")
 
-  def publishVersion = os.read(os.pwd / "VERSION").trim
+object scalaxb extends Cross[Scalaxb](crossVersions: _*)
+class Scalaxb(val crossScalaVersion: String)
+    extends CrossScalaModule
+    with PublishModule {
 
-  // use versions installed from .tool-versions
-  def scalaVersion = scala.util.Properties.versionNumberString
-  def millVersion = System.getProperty("MILL_VERSION")
+  override def publishVersion = T { os.read(os.pwd / "VERSION").trim }
+  override def artifactName = "mill-scalaxb"
 
-  def artifactName = "mill-scalaxb"
+  override def sources = T.sources(millOuterCtx.millSourcePath / "src")
 
   def pomSettings =
     PomSettings(
@@ -26,6 +28,6 @@ object scalaxb extends ScalaModule with PublishModule {
 
   def compileIvyDeps =
     Agg(
-      ivy"com.lihaoyi::mill-scalalib:${millVersion}"
+      ivy"com.lihaoyi::mill-scalalib:latest.stable"
     )
 }

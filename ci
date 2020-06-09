@@ -4,7 +4,7 @@ set -ex
 case "$1" in
 
  jitpack)
-   exec $0 mill _.publishM2Local
+   exec $0 mill -j 0 __.publishM2Local
  ;;
  
  mill)
@@ -23,13 +23,17 @@ case "$1" in
    exec ./cs "${@:2}"
  ;;
 
- test)
-   $0 scalafmt --test
-   $0 mill _.publishLocal 
+ example)
    (cd example; ../ci mill _.compile)
    grep Generated example/out/hello/scalaxbGeneratedSources/dest/*.scala
    file example/out/hello/compile/dest/classes/example/Request.class
    file example/out/hello/compile/dest/classes/scalaxb/Helper.class
+ ;;
+
+ test)
+   $0 scalafmt --test
+   $0 mill -j 0 __.publishLocal 
+   $0 example
  ;;
 
 esac

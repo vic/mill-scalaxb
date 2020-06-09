@@ -2,21 +2,18 @@
 
 import $ivy.`io.get-coursier:interface:0.0.21`
 
-// add mill-scalaxb artifact repo
-import mill._
-interp.repositories() =
-  interp.repositories() ++ Seq(coursierapi.MavenRepository.of("https://jitpack.io"))
+interp.repositories() = interp.repositories() ++ 
+  Seq(coursierapi.MavenRepository.of("https://jitpack.io"))
+
+import $ivy.`io.github.vic::mill-scalaxb:0.5.0`
 
 @
 
-import mill._, scalalib._
-
-// import both scalaxb and the mill module
-import $ivy.`io.github.vic::mill-scalaxb:0.4.1`, mill.scalaxb._
+import mill._, scalalib._, mill.scalaxb.ScalaxbModule
 
 object hello extends ScalaModule with ScalaxbModule {
 
-  def scalaVersion = "2.12.11"
+  def scalaVersion = scala.util.Properties.versionNumberString
 
   // REQUIRED name of the package for generated sources
   def scalaxbDefaultPackage = "example"
