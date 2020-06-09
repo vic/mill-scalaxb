@@ -12,8 +12,7 @@ interp.repositories() =
 import mill._, scalalib._
 
 // import both scalaxb and the mill module
-import $ivy.`io.github.vic::mill-scalaxb:0.4.0`, mill.scalaxb._
-import $ivy.`org.scalaxb::scalaxb:1.7.3`
+import $ivy.`io.github.vic::mill-scalaxb:0.4.1`, mill.scalaxb._
 
 object hello extends ScalaModule with ScalaxbModule {
 
@@ -22,9 +21,10 @@ object hello extends ScalaModule with ScalaxbModule {
   // REQUIRED name of the package for generated sources
   def scalaxbDefaultPackage = "example"
 
-  // REQUIRED add the scalaxb runtime dependency
-  def ivyDeps = Agg(
-    ivy"org.scalaxb::scalaxb:1.7.3",
+  // REQURED add the scalaxb runtime dependency to your classpath
+  def ivyDeps = 
+    super.ivyDeps() ++ scalaxbIvyDeps() ++ Agg(
+   // this project specific deps
     ivy"org.glassfish.jaxb:jaxb-runtime:2.3.2"
   )
 
