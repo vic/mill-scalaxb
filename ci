@@ -8,11 +8,15 @@ case "$1" in
  ;;
  
  mill)
-   exec $0 cs launch mill -- "${@:2}"
+   exec $0 cs launch --jvm graalvm:19.0.2 --scala 2.13.3 mill -- "${@:2}"
+ ;;
+
+ mill-i)
+   exec $0 cs launch --jvm graalvm:19.0.2 --scala 2.13.3 mill-interactive -- -i "${@:2}"
  ;;
 
  scalafmt)
-   exec $0 cs launch scalafmt -- --mode diff --diff-branch master "${@:2}"
+   exec $0 cs launch --jvm graalvm:19.0.2 --scala 2.13.3 scalafmt -- --mode diff --diff-branch master "${@:2}"
  ;;
 
  cs)
@@ -23,7 +27,12 @@ case "$1" in
    exec ./cs "${@:2}"
  ;;
 
+ publishLocal)
+  $0 mill-i -j 0 -D PUBLISH_VERSION=latest __.publishLocal
+  ;;
+
  example)
+   $0 publishLocal
    (cd example; ../ci mill _.compile)
    grep Generated example/out/hello/scalaxbGeneratedSources/dest/*.scala
    file example/out/hello/compile/dest/classes/example/Request.class
@@ -32,8 +41,12 @@ case "$1" in
 
  test)
    $0 scalafmt --test
-   $0 mill -j 0 __.publishLocal 
    $0 example
+ ;;
+
+ *)
+   echo "Command not found ci ${@}"
+   exit 1
  ;;
 
 esac

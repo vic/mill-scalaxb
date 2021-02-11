@@ -1,14 +1,6 @@
 // -*- mode: scala -*-
 
-import $ivy.`io.get-coursier:interface:0.0.21`
-
-interp.repositories() = interp.repositories() ++ 
-  Seq(coursierapi.MavenRepository.of("https://jitpack.io"))
-
-import $ivy.`io.github.vic::mill-scalaxb:0.5.0`
-
-@
-
+import $ivy.`com.github.vic::mill-scalaxb:latest`
 import mill._, scalalib._, mill.scalaxb.ScalaxbModule
 
 object hello extends ScalaModule with ScalaxbModule {
