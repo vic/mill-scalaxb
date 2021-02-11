@@ -2,7 +2,7 @@
 
 import mill._, scalalib._, publish._
 
-val crossVersions = Seq("2.13.2", "2.12.11")
+val crossVersions = Seq("2.13.2")
 
 object scalaxb extends Cross[Scalaxb](crossVersions: _*)
 class Scalaxb(val crossScalaVersion: String)
