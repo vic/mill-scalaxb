@@ -1,8 +1,7 @@
 package mill.scalaxb
 
-import mill._, scalalib._
+import mill._, os._, scalalib._
 import mill.modules.Jvm
-import ammonite.ops._
 
 trait ScalaxbModule extends ScalaModule {
 
@@ -25,8 +24,8 @@ trait ScalaxbModule extends ScalaModule {
     T[Seq[String]] {
       scalaxbOptions() ++
         Seq[String]("--default-package", scalaxbDefaultPackage()) ++
-        scalaxbPackages().map {
-          case (url, pkg) => s"--package:${url}=${pkg}"
+        scalaxbPackages().map { case (url, pkg) =>
+          s"--package:${url}=${pkg}"
         } ++
         (wsdlSources() ++ xsdSources()).map(_.path.toString)
     }
@@ -52,12 +51,12 @@ trait ScalaxbModule extends ScalaModule {
         workingDir = forkWorkingDir()
       )
 
-      Seq(PathRef(dest)).flatMap(p => ls.rec(p.path)).map(PathRef(_))
+      Seq(PathRef(dest)).flatMap(p => walk(p.path)).map(PathRef(_))
     }
 
   private def filesUnder(path: Seq[PathRef], extension: String): Seq[PathRef] =
     path
-      .flatMap(p => ls.rec(p.path))
+      .flatMap(p => walk(p.path))
       .filter(_.toString.contains(extension))
       .map(PathRef(_))
 
