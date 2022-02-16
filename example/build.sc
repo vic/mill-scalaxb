@@ -1,7 +1,7 @@
 // -*- mode: scala -*-
 
 import $ivy.`com.github.vic::mill-scalaxb:latest`
-import mill._, scalalib._, mill.scalaxb.ScalaxbModule
+import mill._, os._, scalalib._, mill.scalaxb.ScalaxbModule
 
 object hello extends ScalaModule with ScalaxbModule {
 
@@ -14,7 +14,7 @@ object hello extends ScalaModule with ScalaxbModule {
   def ivyDeps = 
     super.ivyDeps() ++ scalaxbIvyDeps() ++ Agg(
    // this project specific deps
-    ivy"org.glassfish.jaxb:jaxb-runtime:2.3.2"
+    ivy"org.glassfish.jaxb:jaxb-runtime:2.3.6"
   )
 
   // optionally map namespace URIs to packages
